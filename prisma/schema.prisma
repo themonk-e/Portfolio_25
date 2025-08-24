@@ -28,11 +28,12 @@ model Project {
 
 model Skill {
   id          Int      @id @default(autoincrement())
-  name        String
+  name        String   @unique
   category    String   // 'frontend', 'backend', 'tools'
-  proficiency Int      @default(5) // 1-10 scale
-  iconName    String?
+  logo        String?  // Image URL or emoji
+  logoType    String?  // 'emoji', 'url', or 'upload'
   createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@map("skills")
 }

@@ -75,6 +75,64 @@ This document tracks all development activities, decisions, and progress made on
 - **Component Architecture**: Leveraged existing `GlassCard` component for consistency
 - **Mouse Interaction**: All project cards now respond to mouse movement with glow effects
 
+## UX & Performance Improvements - 2025-08-24
+
+### Section Reordering & Structure
+- ✅ **Section Flow Optimization**: Reorganized page sections for better user journey
+  - New order: Home → About (with Experience Timeline) → Projects → Blog → Skills → Contact
+  - Skills moved to final position before contact for better narrative flow
+  - Updated navigation items in constants.ts to match new section order
+
+### Experience Timeline Implementation
+- ✅ **Professional Experience Section**: Added comprehensive work history to About section
+  - **Timeline Design**: Vertical timeline with gradient line and interactive nodes
+  - **Company Cards**: Glassmorphism cards with alternating left/right layout
+  - **Two Sample Companies**: Tech Solutions Inc. (2022-Present) and Digital Innovations Ltd. (2020-2022)
+  - **Interactive Elements**: Animated timeline nodes with neon green glow effects
+  - **Responsive Layout**: Proper spacing and typography hierarchy for all screen sizes
+
+### Skills Section Redesign
+- ✅ **Marquee Animation System**: Complete redesign from static grid to dynamic marquee
+  - **Single Row Layout**: Streamlined from multiple rows to one continuous scroll
+  - **20 Technologies**: Comprehensive skill showcase with icons and categories
+  - **Smooth Animation**: 40-second infinite loop with left-to-right movement
+  - **Glassmorphism Cards**: Hover effects with scale and glow animations
+  - **Performance Optimized**: Efficient animation without layout shifts
+
+### Modal & Animation Performance
+- ✅ **Project Modal Optimization**: Fixed laggy interactions and improved responsiveness
+  - **Animation Speed**: Reduced modal transition from 0.2s to 0.15s
+  - **Backdrop Optimization**: Faster backdrop fade (0.1s) with simplified animations
+  - **Mouse Tracking Removal**: Replaced interactive GlassCard with static glass effects
+  - **Glass Performance**: Used CSS classes instead of heavy mouse-tracking components
+  - **Instant Hover**: Project "View Details" overlay appears in 150ms
+
+### Typography & Font System
+- ✅ **Font Stack Enhancement**: Upgraded from Inter to Poppins for better readability
+  - **Poppins Integration**: Added multiple weights (300, 400, 500, 600, 700)
+  - **Maintained Custom Font**: Glitch Inside font preserved for hero name
+  - **Consistent Typography**: Improved hierarchy and readability across all sections
+
+### Visual Effects & Animations
+- ✅ **Glitch Animation System**: Enhanced name loading effect with dramatic visual impact
+  - **Position Glitching**: Increased movement range (3-7px) with varying opacity (0.2-0.9)
+  - **Color Glitching**: Three-color system (neon green, red, blue) with varying offsets (2-7px)
+  - **Animation Timing**: 1.2s duration with 2 iterations, 0.8s delay coordination
+  - **Glow Removal**: Removed all glow effects from text for cleaner aesthetic
+
+### User Experience Enhancements
+- ✅ **Text Selection Prevention**: Comprehensive non-selectable text implementation
+  - **CSS Utilities**: Added `.no-select`, `.cursor-hand`, `.clickable-text` classes
+  - **Cross-Browser Support**: Full vendor prefix coverage for all browsers
+  - **Component Updates**: Applied to all interactive cards and buttons
+  - **Pointer Cursors**: Added consistent hand cursors for all clickable elements
+
+### Performance & Interaction Improvements
+- **Glassmorphism Optimization**: Static CSS classes for better performance
+- **Animation Efficiency**: Reduced complex transforms and improved GPU acceleration
+- **Mouse Tracking**: Selective implementation only where necessary
+- **Hover States**: Instant feedback with optimized transition durations
+
 ### Technical Decisions Made
 
 #### Architecture Choices

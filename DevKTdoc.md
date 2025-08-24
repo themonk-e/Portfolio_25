@@ -734,4 +734,194 @@ Glass Card Content: z-index: 2
 - **Content Protection**: All content automatically above patterns
 - **Glass Effects**: Properly layered within glass card boundaries
 
+---
+
+## 🔧 Recent UX & Performance Enhancements - 2025-08-24
+
+### Typography & Font Management
+
+#### Poppins Integration
+```typescript
+// src/app/layout.tsx
+const poppins = Poppins({ 
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700']
+})
+```
+
+**Implementation Strategy**:
+- **Multiple Weights**: 300-700 range for comprehensive typography hierarchy
+- **Maintained Custom Font**: Glitch Inside preserved for hero branding
+- **Performance**: Google Fonts optimization with font-display: swap
+- **Fallback Stack**: System fonts for progressive enhancement
+
+#### Glitch Animation System
+```css
+@keyframes glitch {
+  0% { transform: translate(0); opacity: 1; }
+  5% { transform: translate(-5px, 3px); opacity: 0.5; }
+  /* ... enhanced movement patterns ... */
+  100% { transform: translate(0); opacity: 1; }
+}
+
+@keyframes glitch-color {
+  0% { text-shadow: -2px 0 #00ff41, 2px 0 #ff0040; }
+  /* ... three-color system with varying offsets ... */
+  100% { text-shadow: none; }
+}
+
+.glitch-animation {
+  animation: glitch 1.2s ease-in-out, glitch-color 1.2s ease-in-out;
+  animation-delay: 0.8s;
+  animation-iteration-count: 2;
+}
+```
+
+**Technical Decisions**:
+- **Enhanced Movement**: 3-7px translation range with dramatic opacity changes (0.2-0.9)
+- **Three-Color System**: Neon green, red, blue for cyberpunk aesthetic
+- **Coordination**: 0.8s delay aligns with Framer Motion scale animation
+- **Duration Optimization**: 1.2s × 2 iterations for prominent visual impact
+
+### User Experience Enhancements
+
+#### Text Selection Prevention
+```css
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.clickable-text {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+```
+
+**Implementation Pattern**:
+- **Cross-Browser Support**: All vendor prefixes for maximum compatibility
+- **Component Integration**: Applied to all glassmorphism classes automatically
+- **Utility Classes**: Flexible application for specific elements
+- **Cursor Consistency**: Pointer cursor for all interactive elements
+
+#### Modal Performance Optimization
+```typescript
+// Optimized animation configuration
+initial={{ opacity: 0, scale: 0.98 }}
+animate={{ opacity: 1, scale: 1 }}
+exit={{ opacity: 0, scale: 0.98 }}
+transition={{ duration: 0.15, ease: "easeOut" }}
+```
+
+**Performance Strategy**:
+- **Reduced Transition Time**: 0.2s → 0.15s for snappier interactions
+- **Simplified Animations**: Removed Y-axis movement, minimal scale change
+- **Static Glass Effects**: Replaced interactive GlassCard with CSS-only classes
+- **Backdrop Optimization**: 0.1s backdrop fade for instant modal appearance
+
+### Architecture & Section Management
+
+#### Section Flow Optimization
+```typescript
+// Updated navigation order in constants.ts
+export const NAVIGATION_ITEMS = [
+  { label: 'Home', href: '#home' },
+  { label: 'About', href: '#about' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Blog', href: '#blog' },
+  { label: 'Skills', href: '#skills' },     // Moved to final position
+  { label: 'Contact', href: '#contact' },
+] as const
+```
+
+**Narrative Structure**:
+- **Logical Progression**: Personal → Professional → Content → Technical → Contact
+- **Skills as Finale**: Technology showcase before contact section
+- **Experience Timeline**: Added to About section for comprehensive professional history
+- **Navigation Synchronization**: Constants updated to match actual page order
+
+#### Experience Timeline Implementation
+```typescript
+// Timeline component structure
+<div className="relative max-w-4xl mx-auto">
+  <div className="absolute left-1/2 transform -translate-x-0.5 h-full w-0.5 
+                  bg-gradient-to-b from-transparent via-[var(--accent-neon)] to-transparent opacity-30"></div>
+  
+  {/* Alternating timeline items */}
+  <div className="w-5/12 pr-8 text-right">      {/* Left side */}
+  <div className="w-5/12 pl-8">                 {/* Right side */}
+    
+  {/* Interactive timeline nodes */}
+  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full 
+                  border-2 border-[var(--accent-neon)] bg-[var(--background-primary)] z-10">
+    <div className="absolute inset-1 rounded-full bg-[var(--accent-neon)] opacity-75"></div>
+  </div>
+</div>
+```
+
+**Design Patterns**:
+- **Gradient Timeline**: Visual connection with theme colors
+- **Alternating Layout**: Left/right cards for visual balance
+- **Interactive Nodes**: Glowing timeline markers with depth
+- **Glassmorphism Cards**: Consistent with overall design system
+
+### Skills Marquee Animation System
+
+#### Continuous Scroll Architecture
+```typescript
+const SkillMarquee = ({ skills, direction = 'left' }) => {
+  return (
+    <motion.div
+      className="flex space-x-8 whitespace-nowrap"
+      animate={{
+        x: direction === 'left' ? [0, -2000] : [-2000, 0],
+      }}
+      transition={{
+        x: {
+          repeat: Infinity,
+          repeatType: "loop",
+          duration: 40,
+          ease: "linear",
+        },
+      }}
+    >
+      {[...skills, ...skills, ...skills].map((skill, index) => (
+        <motion.div className="flex items-center space-x-3 px-6 py-4 rounded-2xl 
+                               backdrop-blur-sm border border-white/10 bg-white/5 
+                               hover:bg-white/10 transition-all duration-300 
+                               hover:scale-105 hover:border-[var(--accent-neon)]/30 
+                               no-select cursor-pointer">
+```
+
+**Performance Considerations**:
+- **Triple Array Rendering**: Ensures seamless infinite loop
+- **Linear Easing**: Constant speed for smooth marquee effect
+- **GPU Acceleration**: Transform-based animation for 60fps performance
+- **Hover Optimization**: Scale and glow effects without layout impact
+
+### CSS Utility System
+
+#### Enhanced Glass Classes
+```css
+.glass-card {
+  /* Existing glassmorphism properties */
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+```
+
+**Utility Strategy**:
+- **Automatic Integration**: All glass classes include UX enhancements
+- **Consistent Behavior**: Pointer cursor and text selection prevention
+- **Cross-Browser Compatibility**: Full vendor prefix coverage
+- **Performance Optimization**: Static CSS over JavaScript event handling
+
 *This document should be updated whenever significant architectural decisions are made or patterns are established.*

@@ -1,0 +1,557 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Glitch Inside Font - Local */
+@font-face {
+  font-family: 'Glitch Inside';
+  src: url('/fonts/Glitch inside.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --background-primary: #0a0a0a;
+    --background-secondary: #1a1a1a;
+    --accent-neon: #00ff41;
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --text-muted: #888888;
+    --border-default: #333333;
+    --glass-light: rgba(255, 255, 255, 0.05);
+    --glass-medium: rgba(255, 255, 255, 0.1);
+    --glass-dark: rgba(0, 0, 0, 0.3);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
+    --accent-gradient: linear-gradient(135deg, #00ff41, #00cc33);
+  }
+
+  * {
+    border-color: var(--border-default);
+  }
+
+  body {
+    background: var(--background-primary);
+    color: var(--text-primary);
+    font-feature-settings: "rlig" 1, "calt" 1;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      linear-gradient(90deg, transparent 49%, rgba(0, 255, 65, 0.08) 49%, rgba(0, 255, 65, 0.08) 51%, transparent 51%),
+      linear-gradient(0deg, transparent 49%, rgba(0, 255, 65, 0.08) 49%, rgba(0, 255, 65, 0.08) 51%, transparent 51%),
+      radial-gradient(circle at 25% 25%, rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+      radial-gradient(circle at 75% 25%, rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+      radial-gradient(circle at 25% 75%, rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+      radial-gradient(circle at 75% 75%, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px, 40px 40px, 40px 40px, 40px 40px, 40px 40px, 40px 40px;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.6;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .no-select {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+
+  .cursor-hand {
+    cursor: pointer;
+  }
+
+  .clickable-text {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+}
+
+/* Enhanced Glassmorphism Classes for Dark Theme */
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(200px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 255, 65, 0.15), rgba(0, 255, 65, 0.05) 30%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.1s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.glass-card:hover::before {
+  opacity: 1;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(0, 255, 65, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(0, 255, 65, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.glass-button {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.glass-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 255, 65, 0.08), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.glass-button:hover::before {
+  opacity: 1;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border-color: rgba(0, 255, 65, 0.3);
+}
+
+.glass-button > * {
+  position: relative;
+  z-index: 1;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.neon-border {
+  border: 1px solid var(--accent-neon);
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px var(--accent-neon);
+}
+
+.gradient-text {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.glass-medium {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.minimal-shadow {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom Fonts */
+.font-glitch {
+  font-family: 'Glitch Inside', 'Arial Black', sans-serif;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+}
+
+/* Glitch Animation */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+    opacity: 1;
+  }
+  5% {
+    transform: translate(-5px, 3px);
+    opacity: 0.5;
+  }
+  10% {
+    transform: translate(4px, -4px);
+    opacity: 0.7;
+  }
+  15% {
+    transform: translate(-3px, 5px);
+    opacity: 0.4;
+  }
+  20% {
+    transform: translate(6px, -2px);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translate(-4px, -5px);
+    opacity: 0.3;
+  }
+  30% {
+    transform: translate(5px, 4px);
+    opacity: 0.6;
+  }
+  35% {
+    transform: translate(-6px, -3px);
+    opacity: 0.2;
+  }
+  40% {
+    transform: translate(3px, 6px);
+    opacity: 0.9;
+  }
+  45% {
+    transform: translate(-2px, -4px);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(7px, 2px);
+    opacity: 0.7;
+  }
+  55% {
+    transform: translate(-5px, -6px);
+    opacity: 0.3;
+  }
+  60% {
+    transform: translate(4px, 5px);
+    opacity: 0.8;
+  }
+  65% {
+    transform: translate(-7px, -1px);
+    opacity: 0.2;
+  }
+  70% {
+    transform: translate(6px, -5px);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translate(-3px, 4px);
+    opacity: 0.5;
+  }
+  80% {
+    transform: translate(2px, -6px);
+    opacity: 0.9;
+  }
+  85% {
+    transform: translate(-4px, 3px);
+    opacity: 0.4;
+  }
+  90% {
+    transform: translate(5px, -2px);
+    opacity: 0.7;
+  }
+  95% {
+    transform: translate(-2px, 4px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes glitch-color {
+  0% {
+    text-shadow: 
+      -2px 0 #00ff41,
+      2px 0 #ff0040;
+  }
+  5% {
+    text-shadow: 
+      -4px 0 #00ff41,
+      4px 0 #ff0040;
+  }
+  10% {
+    text-shadow: 
+      -3px 0 #ff0040,
+      3px 0 #0040ff;
+  }
+  15% {
+    text-shadow: 
+      -5px 0 #0040ff,
+      5px 0 #00ff41;
+  }
+  20% {
+    text-shadow: 
+      -2px 0 #00ff41,
+      4px 0 #ff0040;
+  }
+  25% {
+    text-shadow: 
+      -6px 0 #ff0040,
+      2px 0 #0040ff;
+  }
+  30% {
+    text-shadow: 
+      -3px 0 #0040ff,
+      5px 0 #00ff41;
+  }
+  35% {
+    text-shadow: 
+      -4px 0 #00ff41,
+      3px 0 #ff0040;
+  }
+  40% {
+    text-shadow: 
+      -5px 0 #ff0040,
+      4px 0 #0040ff;
+  }
+  45% {
+    text-shadow: 
+      -2px 0 #0040ff,
+      6px 0 #00ff41;
+  }
+  50% {
+    text-shadow: 
+      -7px 0 #00ff41,
+      3px 0 #ff0040;
+  }
+  55% {
+    text-shadow: 
+      -3px 0 #ff0040,
+      5px 0 #0040ff;
+  }
+  60% {
+    text-shadow: 
+      -4px 0 #0040ff,
+      4px 0 #00ff41;
+  }
+  65% {
+    text-shadow: 
+      -6px 0 #00ff41,
+      2px 0 #ff0040;
+  }
+  70% {
+    text-shadow: 
+      -2px 0 #ff0040,
+      7px 0 #0040ff;
+  }
+  75% {
+    text-shadow: 
+      -5px 0 #0040ff,
+      3px 0 #00ff41;
+  }
+  80% {
+    text-shadow: 
+      -3px 0 #00ff41,
+      6px 0 #ff0040;
+  }
+  85% {
+    text-shadow: 
+      -4px 0 #ff0040,
+      4px 0 #0040ff;
+  }
+  90% {
+    text-shadow: 
+      -2px 0 #0040ff,
+      5px 0 #00ff41;
+  }
+  95% {
+    text-shadow: 
+      -6px 0 #00ff41,
+      3px 0 #ff0040;
+  }
+  100% {
+    text-shadow: none;
+  }
+}
+
+.glitch-animation {
+  animation: 
+    glitch 1.2s ease-in-out,
+    glitch-color 1.2s ease-in-out;
+  animation-delay: 0.8s;
+  animation-fill-mode: both;
+  animation-iteration-count: 2;
+}
+
+/* Simplified Two-Pattern System */
+.pattern-grid {
+  position: relative;
+}
+
+.pattern-grid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(90deg, transparent 49%, rgba(0, 255, 65, 0.12) 49%, rgba(0, 255, 65, 0.12) 51%, transparent 51%),
+    linear-gradient(0deg, transparent 49%, rgba(0, 255, 65, 0.12) 49%, rgba(0, 255, 65, 0.12) 51%, transparent 51%);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.8;
+}
+
+.pattern-dots {
+  position: relative;
+}
+
+.pattern-dots::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(0, 255, 65, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 80% 20%, rgba(0, 255, 65, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 20% 80%, rgba(0, 255, 65, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 80% 80%, rgba(0, 255, 65, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 50% 50%, rgba(0, 255, 65, 0.06) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 80px 80px, 80px 80px, 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.9;
+}
+
+/* Hero section special center-fading grid */
+.hero-grid {
+  position: relative;
+}
+
+.hero-grid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(90deg, transparent 49%, rgba(0, 255, 65, 0.25) 50%, transparent 51%),
+    linear-gradient(0deg, transparent 49%, rgba(0, 255, 65, 0.25) 50%, transparent 51%);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+  mask: radial-gradient(circle at center, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 40%, rgba(0, 0, 0, 0.3) 60%, transparent 80%);
+  -webkit-mask: radial-gradient(circle at center, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 40%, rgba(0, 0, 0, 0.3) 60%, transparent 80%);
+  filter: drop-shadow(0 0 3px rgba(0, 255, 65, 0.4));
+}
+
+.hero-grid::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(45deg, transparent 49%, rgba(0, 255, 65, 0.12) 50%, transparent 51%),
+    linear-gradient(-45deg, transparent 49%, rgba(0, 255, 65, 0.12) 50%, transparent 51%);
+  background-size: 100px 100px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+  mask: radial-gradient(circle at center, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 70%);
+  -webkit-mask: radial-gradient(circle at center, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 70%);
+  filter: drop-shadow(0 0 2px rgba(0, 255, 65, 0.3));
+}
+
+/* Enhanced pattern visibility for glass cards */
+.glass-card:hover {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Ensure content layers are above patterns */
+.pattern-grid > .max-w-6xl,
+.pattern-dots > .max-w-6xl,
+.hero-grid > .max-w-6xl {
+  position: relative;
+  z-index: 10;
+}
